@@ -1,10 +1,37 @@
-# Go BE Playground
+# Sports-Hub Application Go Back-End
 
-A backend playground project built with Go (Golang), Gin framework, GORM ORM, and Docker Compose.
+## Project Description
 
-## Getting Started
+This is a draft pet project for testing Generative AI on different software engineering tasks. It is planned to evolve and grow over time. Specifically, this repo will be a Go (Golang) playground with Gin framework, GORM ORM, and Docker Compose. The application's legend is based on the sports-hub application description from the following repo: [Sports-Hub](https://github.com/dark-side/sports-hub).
 
-### 1. Copy environment variables
+## Available Front-End applications
+- [React.js](https://github.com/dark-side/sports_hub_react_skeleton)
+- [Angular](https://github.com/dark-side/sports_hub_angular_skeleton)
+
+## Dependencies
+
+- Docker
+- Docker Compose
+
+The mentioned dependencies can be installed using the official documentation [here](https://docs.docker.com/compose/install/).
+[Podman](https://podman-desktop.io/docs/compose) can be used as an alternative to Docker.
+
+## Setup and Running the Application
+
+### Clone the Repositories
+
+To run the web application with the React front-end, clone the following repositories within the same folder:
+
+```sh
+git clone git@github.com:dark-side/sports_hub_go_skeleton.git
+git clone git@github.com:dark-side/sports_hub_angular_skeleton.git
+```
+
+### Navigate to the back-end application directory
+
+All commands should be run from the `sports_hub_go_skeleton` directory.
+
+### Copy environment variables
 
 Before running the project, copy the example environment file:
 
@@ -12,21 +39,26 @@ Before running the project, copy the example environment file:
 cp .example.env .env
 ```
 
-### 2. Build and run the project
+### Build and run the project
 ```bash
 make run
 ```
 This command will build the Docker images and start the containers defined in the `docker-compose.yml` file.
 
-### 3. Access the application
+For Windows you might need to install [Make](https://www.gnu.org/software/make/#download) first or run the command (`-d` for detached mode to run in the background):
+```bash
+docker compose up --build -d
+```
+
+### Access the application
 Once the containers are up and running, you can access the application at:
-- **Backend**: [http://localhost:8080](http://localhost:8080)
+- **Frontend**: [http://localhost:3000](http://localhost:3000)
+- **Backend**: [http://localhost:3002](http://localhost:3002)
 
 ### API Endpoints
-Auth
 
-Register
-•	Endpoint: POST http://localhost:8080/api/auth/register
+#### Register
+•	Endpoint: POST http://localhost:3002/api/auth/register
 •	Description: Register a new user.
 •	Request Body Example:
 ```json
@@ -37,8 +69,8 @@ Register
 }
 ```
 
-## Login
-* Endpoint: POST http://localhost:8080/api/auth/login
+#### Login
+* Endpoint: POST http://localhost:3002/api/auth/login
 * Description: Authenticate user and get JWT token.
 * Request Body Example:
 ```json
@@ -48,22 +80,22 @@ Register
 }
 ```
 
-## User
+#### User
 
 Get Profile
-* Endpoint: GET http://localhost:8080/api/user/profile
+* Endpoint: GET http://localhost:3002/api/user/profile
 * Description: Retrieve authenticated user’s profile.
 * Authorization: Required — Add Header - Authorization:  <your_token>.
 
-## Articles
+#### Articles
 
 Get All Articles
-* Endpoint: GET http://localhost:8080/api/articles
+* Endpoint: GET http://localhost:3002/api/articles
 * Description: Retrieve all articles.
 * Authorization: Required — Add Header - Authorization:  <your_token>.
 
-## Create Article
-* Endpoint: POST http://localhost:8080/api/articles
+#### Create Article
+* Endpoint: POST http://localhost:3002/api/articles
 * Description: Create a new article.
 * Authorization: Required — Add Header - Authorization:  <your_token>.
 * Request Body Example:
@@ -75,8 +107,8 @@ Get All Articles
 }
 ```
 
-## Update Article
-* Endpoint: PUT http://localhost:8080/api/articles/{id}
+#### Update Article
+* Endpoint: PUT http://localhost:3002/api/articles/{id}
 * Description: Update an existing article by ID.
 * Authorization: Required — Add Header - Authorization:  <your_token>.
 * Request Body Example:
@@ -88,12 +120,26 @@ Get All Articles
 }
 ```
 
-## Delete Article
-*   Endpoint: DELETE http://localhost:8080/api/articles/{id}
+#### Delete Article
+*   Endpoint: DELETE http://localhost:3002/api/articles/{id}
 *   Description: Delete an article by ID.
 *   Authorization: Required — Add Header - Authorization:  <your_token>.
 
-## Get Article by ID
-*   Endpoint: GET http://localhost:8080/api/articles/{id}
+#### Get Article by ID
+*   Endpoint: GET http://localhost:3002/api/articles/{id}
 *   Description: Retrieve a single article by ID.
 *   Authorization: Required — Add Header - Authorization:  <your_token>.
+
+## License
+
+Licensed under either of
+
+- [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+- [MIT license](http://opensource.org/licenses/MIT)
+
+Just to let you know, at your option.
+
+## Contribution
+Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in your work, as defined in the Apache-2.0 license, shall be dual licensed as above, without any additional terms or conditions.
+
+**Should you have any suggestions, please create an Issue for this repository**
