@@ -15,7 +15,7 @@ services:
     depends_on:
       - db
   db:
-    container_name: db
+    container_name: go-db
     image: postgres
     env_file: .env
     ports:
@@ -30,7 +30,6 @@ services:
       - 3000:3000
     restart: always
     environment:
-      REACT_APP_API_URL: "http://localhost:3002"
       NG_APP_API_URL: "http://localhost:3002/"
 
 volumes:
