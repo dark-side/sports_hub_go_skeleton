@@ -2,7 +2,9 @@
 
 ## Project Description
 
-This is a draft pet project for testing Generative AI on different software engineering tasks. It is planned to evolve and grow over time. Specifically, this repo will be a Go (Golang) playground with Gin framework, GORM ORM, and Docker Compose. The application's legend is based on the sports-hub application description from the following repo: [Sports-Hub](https://github.com/dark-side/sports-hub).
+This is a draft pet project for testing Generative AI on different software engineering tasks. It is planned to evolve and grow over time. Specifically, this repo will be a Go (Golang) playground with Gin framework, GORM ORM, and Docker Compose.
+
+The application's legend is based on the sports-hub application description from the following repo: [Sports-Hub](https://github.com/dark-side/sports-hub).
 
 ## Available Front-End applications
 - [React.js](https://github.com/dark-side/sports_hub_react_skeleton)
@@ -14,7 +16,7 @@ This is a draft pet project for testing Generative AI on different software engi
 - Docker Compose
 
 The mentioned dependencies can be installed using the official documentation [here](https://docs.docker.com/compose/install/).
-[Podman](https://podman-desktop.io/docs/compose) can be used as an alternative to Docker.
+Read more about alternatives to Docker [here](https://github.com/dark-side/sports_hub_angular_skeleton/blob/main/READMORE_DockerAlternatives.md).
 
 ## Setup and Running the Application
 
