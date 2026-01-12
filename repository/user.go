@@ -17,6 +17,7 @@ type UserRepository interface {
 	IsDuplicateEmail(email string) (tx *gorm.DB)
 	FindByEmail(email string) model.User
 	ProfileUser(userID string) model.User
+	AllUser() []model.User
 }
 
 type userConnection struct {
@@ -72,6 +73,12 @@ func (db *userConnection) ProfileUser(userID string) model.User {
 	var user model.User
 	db.connection.Preload("Accounts").Preload("Accounts.User").Find(&user, userID)
 	return user
+}
+
+func (db *userConnection) AllUser() []model.User {
+	var users []model.User
+	db.connection.Find(&users)
+	return users
 }
 
 func hashAndSalt(pwd []byte) string {
