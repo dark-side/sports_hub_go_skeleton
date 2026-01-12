@@ -60,26 +60,38 @@ func main() {
 		MaxAge:           365 * 24 * time.Hour,
 	}))
 
-	//TOD: double check the routes from documentation
+	// Registration WITHOUT /api prefix (as per official spec)
+	r.POST("/users/registrations", authHandler.Register)
+
+	// Auth routes WITH /api prefix
 	authRoutes := r.Group("api/auth")
 	{
-		authRoutes.POST("/login", authHandler.Login)
-		authRoutes.POST("/register", authHandler.Register)
+		authRoutes.POST("/sign_in", authHandler.SignIn)
+		authRoutes.DELETE("/sign_out", middleware.AuthorizeJWT(jwtService), authHandler.SignOut)
 	}
 
-	userRoutes := r.Group("api/user", middleware.AuthorizeJWT(jwtService))
+	// User routes WITH /api prefix
+	userRoutes := r.Group("api/users")
 	{
-		userRoutes.GET("/profile", userHandler.Profile)
-		userRoutes.PUT("/profile", userHandler.Update)
+		// Public routes
+		userRoutes.GET("", userHandler.GetAllUsers)
+		userRoutes.GET("/:id", userHandler.GetUserByID)
+		
+		// Protected routes
+		userRoutes.PUT("/:id", middleware.AuthorizeJWT(jwtService), userHandler.Update)
 	}
 
-	articleRoutes := r.Group("api/articles", middleware.AuthorizeJWT(jwtService))
+	// Article routes WITH /api prefix
+	articleRoutes := r.Group("api/articles")
 	{
-		articleRoutes.POST("/", articleHandler.CreateArticle)
-		articleRoutes.PUT("/:id", articleHandler.UpdateArticle)
-		articleRoutes.DELETE("/:id", articleHandler.DeleteArticle)
+		// Public routes
+		articleRoutes.GET("", articleHandler.GetAllArticles)
 		articleRoutes.GET("/:id", articleHandler.GetArticleByID)
-		articleRoutes.GET("/", articleHandler.GetAllArticles)
+		
+		// Protected routes
+		articleRoutes.POST("", middleware.AuthorizeJWT(jwtService), articleHandler.CreateArticle)
+		articleRoutes.PUT("/:id", middleware.AuthorizeJWT(jwtService), articleHandler.UpdateArticle)
+		articleRoutes.DELETE("/:id", middleware.AuthorizeJWT(jwtService), articleHandler.DeleteArticle)
 	}
 
 	commentRoutes := r.Group("api/comments", middleware.AuthorizeJWT(jwtService))
