@@ -13,7 +13,8 @@ import (
 )
 
 type AuthHandler interface {
-	Login(ctx *gin.Context)
+	SignIn(ctx *gin.Context)
+	SignOut(ctx *gin.Context)
 	Register(ctx *gin.Context)
 }
 
@@ -29,7 +30,7 @@ func NewAuthHandler(authService service.AuthService, jwtService service.JWTServi
 	}
 }
 
-func (c *authHandler) Login(ctx *gin.Context) {
+func (c *authHandler) SignIn(ctx *gin.Context) {
 	var loginDTO dto.LoginDTO
 	errDTO := ctx.ShouldBind(&loginDTO)
 	if errDTO != nil {
@@ -47,6 +48,13 @@ func (c *authHandler) Login(ctx *gin.Context) {
 	}
 	response := helper.BuildErrorResponse("Please check again your credential", "Invalid Credential", helper.EmptyObj{})
 	ctx.AbortWithStatusJSON(http.StatusUnauthorized, response)
+}
+
+func (c *authHandler) SignOut(ctx *gin.Context) {
+	// In a stateless JWT system, sign out is typically handled client-side
+	// by removing the token. Here we just return a success message.
+	response := helper.BuildResponse(true, "Signed out successfully", helper.EmptyObj{})
+	ctx.JSON(http.StatusOK, response)
 }
 
 func (c *authHandler) Register(ctx *gin.Context) {
