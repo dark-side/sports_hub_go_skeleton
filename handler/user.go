@@ -16,6 +16,8 @@ import (
 type UserHandler interface {
 	Update(context *gin.Context)
 	Profile(context *gin.Context)
+	GetAllUsers(context *gin.Context)
+	GetUserByID(context *gin.Context)
 }
 
 type userHandler struct {
@@ -66,5 +68,22 @@ func (c *userHandler) Profile(context *gin.Context) {
 	user := c.userService.Profile(id)
 	res := helper.BuildResponse(true, "OK", user)
 	context.JSON(http.StatusOK, res)
+}
 
+func (c *userHandler) GetAllUsers(context *gin.Context) {
+	users := c.userService.GetAllUsers()
+	res := helper.BuildResponse(true, "OK", users)
+	context.JSON(http.StatusOK, res)
+}
+
+func (c *userHandler) GetUserByID(context *gin.Context) {
+	id := context.Param("id")
+	user := c.userService.Profile(id)
+	if user.ID == 0 {
+		res := helper.BuildErrorResponse("User not found", "No user with given ID", helper.EmptyObj{})
+		context.JSON(http.StatusNotFound, res)
+		return
+	}
+	res := helper.BuildResponse(true, "OK", user)
+	context.JSON(http.StatusOK, res)
 }
