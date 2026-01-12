@@ -13,6 +13,7 @@ import (
 type UserService interface {
 	Update(user dto.UserUpdateDTO) model.User
 	Profile(userID string) model.User
+	GetAllUsers() []model.User
 }
 
 type userService struct {
@@ -37,4 +38,8 @@ func (service *userService) Update(user dto.UserUpdateDTO) model.User {
 
 func (service *userService) Profile(userID string) model.User {
 	return service.userRepository.ProfileUser(userID)
+}
+
+func (service *userService) GetAllUsers() []model.User {
+	return service.userRepository.AllUser()
 }
